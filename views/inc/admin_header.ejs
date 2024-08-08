@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>رویا همراه | <%= pageTitle %></title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="icon" type="image/png" href="icons/royahamrah-rounded.png"/>
+  <link rel="stylesheet" href="css/bootstrap-theme.css">
+  <link rel="stylesheet" href="css/rtl.css">
+  <link rel="stylesheet" href="css/font-awesome_6.4.2_all.min.css">
+  <link rel="stylesheet" href="css/Ionicons/css/ionicons.css">
+  <link rel="stylesheet" href="css/AdminLTE.css">
+  <link rel="stylesheet" href="css/_all-skins.css">
+  <link rel="stylesheet" href="css/Addproduct.css">
+  <link rel="stylesheet" href="css/select2.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/adminlte.min.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/select2.min.js"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <a href="/admin" class="logo">
+      <span class="logo-mini">
+        <img src="icons/royahamrah-rounded.png" width="36">
+      </span>
+      <span class="logo-lg"><img src="icons/royahamrah-rounded.png" width="36" style="margin-left: 8px;"><b>رویا همراه بام</b></span>
+    </a>
+    <nav class="navbar navbar-static-top">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown user user-menu">
+            <a href="#" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
+            <ul class="dropdown-menu">
+              <li class="user-header">
+                <img src="icons/royahamrah-rounded.png" class="img-circle" alt="User Image">
+                <p>مدیریت کل</p>
+              </li>
+              <li class="user-footer">
+                <div class="pull-right">
+                  <a href="/admin/change-password" class="btn btn-default btn-flat">تغییر رمز</a>
+                </div>
+                <div class="pull-left">
+                  <a href="/logout" class="btn btn-default btn-flat">خروج</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <aside class="main-sidebar">
+    <section class="sidebar">
+      <ul class="sidebar-menu" data-widget="tree">
+
+        <li class="treeview <%= activeItem == 'list-products' || activeItem == 'add-product' ? 'menu-open active' : '' %>">
+          <a href="#">
+            <i class="fa-solid fa-mobile fa-xl" style="margin-left: 8px;"></i><span>محصولات</span>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<%= activeItem == 'list-products' ? 'active' : '' %>"><a href="/admin/list-products"><i class="fa fa-circle-o"></i>لیست محصولات</a></li>
+            <li class="<%= activeItem == 'add-product' ? 'active' : '' %>"><a href="/admin/add-product"><i class="fa fa-circle-o"></i>افزودن محصول</a></li>
+          </ul>
+        </li>
+        <li class="treeview <%= activeItem == 'list-baskets' || activeItem == 'add-basket' ? 'menu-open active' : '' %>">
+          <a href="#">
+            <i class="fa-solid fa-bag-shopping fa-xl" style="margin-left: 8px;"></i><span>سبدها</span>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-right pull-left"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<%= activeItem == 'list-baskets' ? 'active' : '' %>"><a href="/admin/list-baskets"><i class="fa fa-circle-o"></i>لیست سبدها</a></li>
+            <li class="<%= activeItem == 'add-basket' ? 'active' : '' %>"><a href="/admin/add-basket"><i class="fa fa-circle-o"></i>افزودن سبد</a></li>
+
+          </ul>
+        </li>
+
+    </section>
+  </aside>

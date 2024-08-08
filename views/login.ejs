@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<title>رویا همراه | ورود به سامانه</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="icons/royahamrah-rounded.png"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/img7.webp');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" action="/login" method="POST">
+					<span class="login100-form-logo">
+						<img src="icons/royahamrah-logo.png" height="50px" alt="">
+					</span>
+					<span class="login100-form-title" style="padding: 16px 0;">
+						ورود به سامانه
+					</span>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="username" placeholder="نام کاربری" required>
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="password" name="password" placeholder="رمز عبور" required>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<% if(messages.error){ %>
+						<div class="alert-box">
+							<%= messages.error %>
+						</div>
+					<% } %>
+	
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" style="border-radius: 36px;">ورود</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

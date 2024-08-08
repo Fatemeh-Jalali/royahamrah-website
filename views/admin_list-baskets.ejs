@@ -1,0 +1,87 @@
+<%- include("inc/admin_header", {pageTitle: "لیست سبدها", activeItem: "list-baskets"}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      لیست سبدها
+      <a class="btn btn-success" href="/admin/add-basket">افزودن سبد</a>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i>کنترل پنل ادمین</a></li>
+      <li>سبدها</li>
+      <li><a href="/admin/list-baskets"><i class="active"></i>لیست سبدها</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+      <div class="card">
+
+        <% if(!allBaskets.length){ %>
+          <p>سبدی یافت نشد</p>
+        <% }else{ %>
+
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-striped table-hover table-bordered">
+              <thead>
+                <tr>
+                    <td rowspan="2">ردیف</td>
+                    <td rowspan="2">عنوان سبد</td>
+                    <td rowspan="2">تاریخ ثبت</td>
+                    <td colspan="5">محصولات</td>
+                    <td rowspan="2">قیمت کل (تومان)</td>
+                    <td rowspan="2">توضیحات سبد</td>
+                    <td rowspan="2">مدیریت</td>
+                </tr>
+        
+                <tr>
+                    <td>عنوان</td>
+                    <td>رنگ</td>
+                    <td>قیمت (تومان)</td>
+                    <td>تعداد</td>
+                    <td>قیمت کل (تومان)</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(let i = 0; i < allBaskets.length; i++){ %>
+                    <tr>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>"><%= i+1 %></td>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>"><%= allBaskets[i].basket_title %></td>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>"><%= moment(allBaskets[i].basket_time * 1).format("jYYYY/jM/jD HH:mm") %></td>
+                        <td><%= allBaskets[i].basket_products[0].basket_product_title %></td>
+                        <td><%= allBaskets[i].basket_products[0].basket_product_color %></td>
+                        <td><%= allBaskets[i].basket_products[0].basket_product_price.toLocaleString() %></td>
+                        <td><%= allBaskets[i].basket_products[0].basket_product_count %></td>
+                        <td><%= (allBaskets[i].basket_products[0].basket_product_price * allBaskets[i].basket_products[0].basket_product_count).toLocaleString() %></td>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>">
+                            <%= allBaskets[i].basket_products.reduce((accumulator, currentValue) => accumulator + (currentValue.basket_product_price * currentValue.basket_product_count), 0).toLocaleString(); %>
+                        </td>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>" style="white-space: pre-wrap;"><%= allBaskets[i].basket_description %></td>
+                        <td rowspan="<%= allBaskets[i].basket_products.length %>">
+                          <a href="/view-basket?id=<%= allBaskets[i].basket_id %>" class="btn btn-success btn-sm rounded-0" target="_blank"><i class="fa fa-eye" style="margin-left: 8px;"></i>مشاهده</a>
+                          <a href="/admin/edit-basket?id=<%= allBaskets[i].basket_id %>" class="btn btn-warning btn-sm rounded-0"><i class="fa fa-edit" style="margin-left: 8px;"></i>ویرایش</a>
+                          <a href="/admin/delete-basket?id=<%= allBaskets[i].basket_id %>" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-trash" style="margin-left: 8px;"></i>حذف</a>
+                        </td>
+                    </tr>
+        
+                    <% for(let j = 1; j < allBaskets[i].basket_products.length; j++){ %>
+                        <tr>
+                            <td><%= allBaskets[i].basket_products[j].basket_product_title %></td>
+                            <td><%= allBaskets[i].basket_products[j].basket_product_color %></td>
+                            <td><%= allBaskets[i].basket_products[j].basket_product_price.toLocaleString() %></td>
+                            <td><%= allBaskets[i].basket_products[j].basket_product_count %></td>
+                            <td><%= (allBaskets[i].basket_products[j].basket_product_price * allBaskets[i].basket_products[j].basket_product_count).toLocaleString() %></td>
+                        </tr>
+                    <% } %>
+                <% } %>
+        
+              </tbody>
+            </table>
+          </div>
+          
+
+        <% } %>
+      </div>
+  </section>
+</div>
+
+<%- include("inc/admin_footer"); %>

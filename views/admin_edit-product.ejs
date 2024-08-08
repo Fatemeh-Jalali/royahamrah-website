@@ -1,0 +1,31 @@
+<%- include("inc/admin_header", {pageTitle: "ویرایش محصول", activeItem: ""}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      ویرایش محصول
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i>کنترل پنل ادمین</a></li>
+      <li>محصولات</li>
+      <li><a href="/admin/edit-product?id=<%= foundProduct.product_id %>"><i class="active"></i>ویرایش محصول</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+      <div class="card">
+          <div class="container">
+              <form id="editForm" action="/admin/edit-product?id=<%= foundProduct.product_id %>" method="POST">
+                  <div class="form-group1">
+                      <label for="title">عنوان محصول</label>
+                      <input class="form-field" type="text" name="title" id="title" value="<%= foundProduct.product_title %>">
+                  </div>
+                  
+                  <button type="submit" class="add-btn">ویرایش</button>
+              </form>
+            </div>
+      </div>
+  </section>
+</div>
+
+<%- include("inc/admin_footer"); %>

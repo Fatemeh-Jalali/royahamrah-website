@@ -1,0 +1,138 @@
+<%- include("inc/admin_header", {pageTitle: "ویرایش سبد", activeItem: ""}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      ویرایش سبد
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i>کنترل پنل ادمین</a></li>
+      <li>سبدها</li>
+      <li><a href="/admin/edit-basket?id=<%= foundBasket.basket_id %>"><i class="active"></i>ویرایش سبد</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+      <div class="card">
+          <div class="container">
+              <form id="editForm" action="/admin/edit-basket?id=<%= foundBasket.basket_id %>" method="POST">
+                <div class="form-group1">
+                    <label for="title">عنوان سبد</label>
+                    <input class="form-field" type="text" name="title" id="title" value="<%= foundBasket.basket_title %>">
+                </div>
+
+                <div id="product-rows">
+
+                    <% for(let h = 0; h<foundBasket.basket_products.length; h++){ %>
+                        <h3>محصول شماره <%= h + 1 %></h3>
+                        <select name="product[<%= h %>][title]" id="select-<%= h %>">
+                            <option value="">انتخاب محصول</option>
+                            <% for(let i = 0; i < allProducts.length; i++){ %>
+                                <option value="<%= allProducts[i].product_title %>" <%= foundBasket.basket_products[h].basket_product_title == allProducts[i].product_title ? "selected" : "" %>><%= allProducts[i].product_title %></option>
+                            <% } %>
+                        </select>
+                        <div class="row" style="margin-top: 16px;">
+                            <div class="col-md-4">
+                                <input type="text" name="product[<%= h %>][color]" placeholder="رنگ" class="form-field" value="<%= foundBasket.basket_products[h].basket_product_color %>">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" id="product[<%= h %>][price]" name="product[<%= h %>][price]" placeholder="قیمت (تومان)" class="form-field col-md-4" value="<%= foundBasket.basket_products[h].basket_product_price %>"
+                                onchange="calculateRowPrice(document.getElementById('product[<%= h %>][price]').value, document.getElementById('product[<%= h %>][count]').value, document.getElementById('caption[<%= h %>]'))"
+                                onkeyup="calculateRowPrice(document.getElementById('product[<%= h %>][price]').value, document.getElementById('product[<%= h %>][count]').value, document.getElementById('caption[<%= h %>]'))">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" id="product[<%= h %>][count]" name="product[<%= h %>][count]" placeholder="تعداد" class="form-field col-md-4" value="<%= foundBasket.basket_products[h].basket_product_count %>"
+                                onchange="calculateRowPrice(document.getElementById('product[<%= h %>][price]').value, document.getElementById('product[<%= h %>][count]').value, document.getElementById('caption[<%= h %>]'))"
+                                onkeyup="calculateRowPrice(document.getElementById('product[<%= h %>][price]').value, document.getElementById('product[<%= h %>][count]').value, document.getElementById('caption[<%= h %>]'))">
+                            </div>
+                            
+                        </div>
+
+                    <p id="caption[<%= h %>]"><%= (foundBasket.basket_products[h].basket_product_price * foundBasket.basket_products[h].basket_product_count).toLocaleString() %> تومان</p>
+                    <% } %>
+                    <br>
+            
+                </div>
+            
+                <p id="total-price-text">قیمت کل سبد: <%= foundBasketTotalPrice %> تومان</p>
+
+                <textarea name="description" cols="30" rows="4" placeholder="توضیحات سبد" style="margin-bottom: 16px;"><%= foundBasket.basket_description %></textarea>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" onclick="addRow()" class="add-btn" style="margin-bottom: 16px;">افزودن محصول</button>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <button type="submit" class="add-btn" style="margin-bottom: 16px;">ویرایش سبد</button>
+                    </div>
+                </div>
+
+              </form>
+            </div>
+      </div>
+  </section>
+</div>
+
+<script>
+
+    let rowCount = <%= foundBasket.basket_products.length - 1 %>;
+
+    function calculateRowPrice(price, count, caption) {
+        caption.innerHTML = (price * count).toLocaleString() + " تومان";
+        calculateTotalPrice();
+    }
+
+    function addRow(){
+        rowCount++;
+        document.getElementById("product-rows").insertAdjacentHTML("beforeend", `
+            <h3>محصول شماره ${rowCount+1}</h3>
+            <select name="product[${rowCount}][title]" id="select-${rowCount}">
+                <option value="">انتخاب محصول</option>
+                <% for(let i = 0; i < allProducts.length; i++){ %>
+                    <option value="<%= allProducts[i].product_title %>"><%= allProducts[i].product_title %></option>
+                <% } %>
+            </select>
+            <div class="row" style="margin-top: 16px;">
+                <div class="col-md-4">
+                    <input type="text" name="product[${rowCount}][color]" placeholder="رنگ" class="form-field">
+                </div>
+                <div class="col-md-4">
+                    <input type="number" id="product[${rowCount}][price]" name="product[${rowCount}][price]" placeholder="قیمت (تومان)" class="form-field"
+                        onchange="calculateRowPrice(document.getElementById('product[${rowCount}][price]').value, document.getElementById('product[${rowCount}][count]').value, document.getElementById('caption[${rowCount}]'))"
+                        onkeyup="calculateRowPrice(document.getElementById('product[${rowCount}][price]').value, document.getElementById('product[${rowCount}][count]').value, document.getElementById('caption[${rowCount}]'))">
+                </div>
+                <div class="col-md-4">
+                    <input type="number" id="product[${rowCount}][count]" name="product[${rowCount}][count]" placeholder="تعداد" class="form-field"
+                        onchange="calculateRowPrice(document.getElementById('product[${rowCount}][price]').value, document.getElementById('product[${rowCount}][count]').value, document.getElementById('caption[${rowCount}]'))"
+                        onkeyup="calculateRowPrice(document.getElementById('product[${rowCount}][price]').value, document.getElementById('product[${rowCount}][count]').value, document.getElementById('caption[${rowCount}]'))">
+                </div>
+            </div>
+            
+            <p id="caption[${rowCount}]">0 تومان</p>
+            <br>
+        `);
+        $("#select-" + rowCount).select2();
+    }
+
+    function calculateTotalPrice() {
+        let totalPrice = 0;
+        for(let i = 0; i < rowCount+1; i++){
+            if(true){//!isNaN(document.getElementById(`product[${i}][price]`).value * document.getElementById(`product[${i}][count]`).value)){
+                totalPrice += document.getElementById(`product[${i}][price]`).value * document.getElementById(`product[${i}][count]`).value;
+            }
+        }
+
+        document.getElementById("total-price-text").innerHTML = "قیمت کل سبد: " + totalPrice.toLocaleString() + " تومان";
+    }
+
+    $(document).ready(function () {
+        <% for(let k = 0; k < foundBasket.basket_products.length; k++){ %>
+            $("#select-<%= k %>").select2();
+        <% } %>
+    });
+
+
+</script>
+
+<%- include("inc/admin_footer"); %>

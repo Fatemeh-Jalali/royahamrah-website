@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<title>رویا همراه | مشاهده سبد <%= foundBasket.basket_title %></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="icons/royahamrah-rounded.png"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/img7.webp');">
+			<div class="wrap-login100" style="padding: 16px;">
+				<div class="login100-form validate-form">
+					<span class="login100-form-logo">
+						<img src="icons/royahamrah-logo.png" height="50px" alt="">
+					</span>
+					<span class="login100-form-title" style="padding: 16px 0;">
+						<%= foundBasket.basket_title %>
+					</span>
+
+                    <table class="table-factor">
+                        <tr>
+                            <td>عنوان</td>
+                            <td>رنگ</td>
+                            <td>قیمت واحد</td>
+                            <td>تعداد</td>
+                            <td>قیمت کل</td>
+                        </tr>
+                    
+                        <% for(let i = 0; i < foundBasket.basket_products.length; i++){ %>
+                            <tr>
+                                <td><%= foundBasket.basket_products[i].basket_product_title %></td>
+                                <td><%= foundBasket.basket_products[i].basket_product_color %></td>
+                                <td><%= foundBasket.basket_products[i].basket_product_price.toLocaleString() %></td>
+                                <td><%= foundBasket.basket_products[i].basket_product_count %></td>
+                                <td><%= (foundBasket.basket_products[i].basket_product_price * foundBasket.basket_products[i].basket_product_count).toLocaleString() %></td>
+                            </tr>
+                        <% } %>
+                    </table>
+
+                    <div class="msg-alert-box">
+                        <ol>
+                            <li><strong>هزینه کل: <%= foundBasketTotalPrice %> تومان</strong></li>
+                            <li>زمان ثبت سبد: <%= moment(foundBasket.basket_time * 1).format("jYYYY/jM/jD HH:mm") %></li>
+                        </ol>
+                        
+                    </div>
+
+                    <small style="color: white;">
+                        <strong>توضیحات:</strong>
+                        <br>
+                        <p style="white-space: pre-wrap; color: white;"><%= foundBasket.basket_description %></p>
+                    </small>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

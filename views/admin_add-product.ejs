@@ -1,0 +1,31 @@
+<%- include("inc/admin_header", {pageTitle: "افزودن محصول", activeItem: "add-product"}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      افزودن محصول
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i>کنترل پنل ادمین</a></li>
+      <li>محصولات</li>
+      <li><a href="/admin/add-product"><i class="active"></i>افزودن محصول</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+      <div class="card">
+          <div class="container">
+              <form id="editForm" action="/admin/add-product" method="POST">
+                  <div class="form-group1">
+                      <label for="title">عنوان محصول</label>
+                      <input class="form-field" type="text" name="title" id="title">
+                  </div>
+                  
+                  <button type="submit" class="add-btn">افزودن محصول</button>
+              </form>
+            </div>
+      </div>
+  </section>
+</div>
+
+<%- include("inc/admin_footer"); %>

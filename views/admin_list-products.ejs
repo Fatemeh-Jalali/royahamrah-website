@@ -1,0 +1,59 @@
+<%- include("inc/admin_header", {pageTitle: "لیست محصولات", activeItem: "list-products"}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      لیست محصولات
+      <a class="btn btn-success" href="/admin/add-product">افزودن محصول</a>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard"></i>کنترل پنل ادمین</a></li>
+      <li>محصولات</li>
+      <li><a href="/admin/list-products"><i class="active"></i>لیست محصولات</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+      <div class="card">
+
+        <% if(!allProducts.length){ %>
+          <p>محصولی یافت نشد</p>
+        <% }else{ %>
+
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-striped table-hover table-bordered">
+              <thead>
+                  <tr>
+                      <th>ردیف</th>
+                      <th>عنوان</th>
+                      <th>مدیریت</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <% for(let i = 0; i < allProducts.length; i++){ %>
+                  <tr>
+                      <td><%= i+1 %></td>
+                      <td><%= allProducts[i].product_title %></td>
+                      <td>
+                          <ul class="list-inline m-0">
+                              <li class="list-inline-item">
+                                  <a href="/admin/edit-product?id=<%= allProducts[i].product_id %>" class="btn btn-warning btn-sm rounded-0"><i class="fa fa-edit" style="margin-left: 8px;"></i>ویرایش</a>
+                              </li>
+                              <li class="list-inline-item">
+                                  <a href="/admin/delete-product?id=<%= allProducts[i].product_id %>" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-trash" style="margin-left: 8px;"></i>حذف</a>
+                              </li>
+                          </ul>
+                      </td>
+                  </tr>
+                <% } %>
+        
+              </tbody>
+            </table>
+          </div>
+
+        <% } %>
+      </div>
+  </section>
+</div>
+
+<%- include("inc/admin_footer"); %>

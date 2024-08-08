@@ -1,0 +1,53 @@
+<%- include("inc/admin_header", {pageTitle: "کنترل پنل مدیریت", activeItem: ""}); %>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      کنترل پنل ادمین
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin"><i class="fa fa-dashboard active"></i>کنترل پنل ادمین</a></li>
+    </ol>
+  </section>
+  
+  <section class="content">
+    <p>
+      به پنل ادمین خوش آمدید
+    </p>
+    <div class="row">
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+          <div class="inner">
+            <h3><%= basketCount %></h3>
+
+            <p>سبد</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="/admin/list-baskets" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3><%= productCount %></h3>
+
+            <p>محصول</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-iphone"></i>
+          </div>
+          <a href="/admin/list-products" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+
+    </div>
+  </section>
+</div>
+
+<%- include("inc/admin_footer"); %>
